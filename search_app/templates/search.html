@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" media="screen" href="{% static 'CSS/Core/search.css' %}" />
+        <script src="main.js"></script>
+    {% endblock head %}
+</head>
+<body>  
+    {% block content %}
+        <div class="row resultsDiv">
+           <p class="col-12 searchText">Search results for: <span>"{{ query }}"</span></p> 
+        </div>
+        <div>
+             <div>
+                {% for product in products %}
+                    <div>
+                        <div class="row searchResult">
+                            <a href="{{product.get_url}}"><img src="{{product.image.url}}" alt="{product.name}" class="col-7 searchResultImage"></a>
+                            <div class="col-5 searchInfo">
+                                <h4 class="searchText searchName">{{product.name}}</h4>
+                                <p class="searchText searchPrice">${{product.price}}</p>
+                                <p class="searchText searchDescription">{{product.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div>
+                        <p class="searchText">Your search did not return any results</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endblock content %}  
+</body>
+</html>

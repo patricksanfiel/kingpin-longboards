@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}Page Title{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'CSS/Core/thanks.css'%}" />
+    <script src="main.js"></script>
+    {% endblock head %}
+</head>
+<body>
+    {% block content %}
+        <div class="thanksDiv row">
+            <div class="col-10 thanksDivContent">
+                <h1 class="thanksText">Thanks for placing your order</h1>
+                <p class="thanksText">Your order number is: <span id="orderNumber">{{ customer_order.id }}</span></p>
+                <p class="thanksText receivedOrderNotification">We have received your order and will begin processing right away. For your records an email confirmation has been sent to you. It contains details of the items you purchased</p>
+            </div>
+        </div>
+    {% endblock content %}
+</body>
+</html>

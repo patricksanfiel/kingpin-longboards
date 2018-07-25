@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}Home{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'CSS/Core/index.css' %}" />
+    {% comment %}<script src="main.js"></script> {% endcomment %}
+    {% endblock %}
+</head>
+<body>
+    {% block content %}  
+    <div class="row">
+        <h1 class="categoryPageHeading col-12">Product Categories</h1>
+    </div>
+    <div class="row">
+        {% for category in categories %}
+            <a href="{{category.get_url}}" class="col-6 homePageCategoryLink">
+                <div style="background-image:url({{category.image.url}})" class="homePageCategoryDiv">
+                    <div><h2 class="homePageCategoryHeader">{{category.name}}</h2></div>
+                    <p class="homePageCategoryDescription">{{category.description}}</p>
+                </div>
+            </a>
+            {% if forloop.counter|divisibleby:2 %}
+                </div><div class="row">
+            {% endif %}
+        {% endfor %} 
+    </div>
+    {% endblock  %} 
+</body>
+</html>

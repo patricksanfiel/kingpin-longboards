@@ -1,0 +1,59 @@
+form, .stripeButton, .continueShopping{
+    display: inline;
+}
+.cartIsEmpty{
+    padding: 2em;
+    background-color: white;
+    margin-left: 8.33%;
+    margin-top: 3em;
+    box-shadow: 3px 3px 15px black;
+}
+.yourShoppingCart{
+    text-align: center;
+}
+.pageText{
+    font-family: 'Nanum Gothic', sans-serif;
+    text-align: center;
+}
+.cartPageIcons{
+    color: #333333;
+}
+.productDiv{
+    background-color: white;
+    margin-top: 1em;
+    padding: 0.5em;
+    box-shadow: 3px 3px 15px black;
+}
+.itemsHeader{
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.cartButtonRow{
+    margin-top: 2em;
+}
+.continueShopping{
+    text-decoration: none;
+    color: black;
+}
+.continueShopping:hover{
+    text-decoration: underline;
+    font-weight: bold;
+}
+.checkoutTitle{
+    /* text-decoration: underline; */
+    font-size: 1.2em;
+    font-weight: bold;
+}
+.infoDiv{
+    font-size: 1.2em;
+    margin-top: 2em;
+}
+.yourShoppingCart{
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.checkoutDiv{
+    background-color: white;
+    margin-top: 1em;
+}

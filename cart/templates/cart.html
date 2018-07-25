@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}Page Title{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" media="screen" href="{% static 'CSS/Core/cart.css' %}" />
+        <script src="main.js"></script>  
+    {% endblock head %}
+</head>
+<body>
+    {% block content %}
+        {% if not cart_items %}
+          <div class="row">
+              <div class="col-10 cartIsEmpty">
+                    <h1 class="pageText">Your shopping cart is empty</h1>
+                    <p class="pageText">Please click <a href="{% url 'core:allProducts' %}">here</a> to continue shopping</p>  
+              </div>
+          </div>
+        {% else %}
+        <div class="row">
+            <h1 class="col-12 yourShoppingCart pageText yourShoppingCart">Your Shopping Cart</h1>
+        </div>
+            <div>
+                <div class="row">
+                    <h2 class="col-12 itemsHeader pageText">Items</h2>
+                </div>
+                    {% for cart_item in cart_items  %}
+                        <div class="row productDiv">
+                            <div>
+                                <a href="cart_item.product.get_absolute_url"><img src="{{cart_item.product.image.url}}" alt="" class="col-5 checkoutProductImage"></a>
+                            </div>
+                            <div class="col-5 infoDiv">
+                                <p class="pageText checkoutInfo">{{ cart_item.product.name}}</p>
+                                <br>
+                                <p class="pageText checkoutInfo">SKU: {{cart_item.product.id}}</p>
+                                <br>
+                                <p class="pageText checkoutInfo">Unit Price: ${{cart_item.product.price}}</p>
+                                <br>
+                                <p class="pageText checkoutInfo">Qty: {{cart_item.quantity}} x ${{cart_item.product.price}}</p>
+                                <br>
+                                <p class="pageText checkoutInfo">Subtotal: ${{cart_item.sub_total}}</p>
+                            </div>  
+                            {% if cart_item.quantity < cart_item.product.stock %}
+                                    <div class="cartButtonRow col-2">
+                                        <a href="{% url 'cart:add_cart' cart_item.product.id %}"><i class="fas fa-plus-circle cartPageIcons checkoutInfo"></i></a>&nbsp;<a href="{% url 'cart:cart_remove' cart_item.product.id %}"><i class="fas fa-minus-circle cartPageIcons checkoutInfo"></i></a>&nbsp;<a href="{% url 'cart:remove_all' cart_item.product.id %}"><i class="fas fa-trash-alt cartPageIcons checkoutInfo"></i></a>
+                                    </div>
+                                {% else %}
+                                    <div class="cartButtonRow col-2">
+                                        <a href="{% url 'cart:cart_remove' cart_item.product.id %}"><i class="fas fa-minus-circle cartPageIcons checkoutInfo"></i></a>&nbsp;<a href="{% url 'cart:remove_all' cart_item.product.id %}"><i class="fas fa-trash-alt cartPageIcons checkoutInfo"></i></a>
+                                    </div>
+                                {% endif %}
+                            </div>  
+                    {% endfor %} 
+                <div class="checkoutDiv">
+                    <div class="checkoutDiv row">
+                        <h2 class="col-12 pageText checkoutTitle">Checkout</h2>
+                    </div>
+                    <div class="reviewYourCartDiv row">
+                        <p class="col-12 pageText">Please review your shopping cart before proceeding with payment</p>
+                    </div>
+                    <div class="yourTotal row">
+                        <p class="col-12 pageText">Your total is  <strong>${{ total }}</strong></p>
+                    </div>
+                    <div class="stripeButton row">
+                        <div class="col-12">
+                        <form action="" method="POST" class="stripeButton">
+                            {% csrf_token %}
+                            <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="{{data_key}}"
+                            data-amount="{{stripe_total}}"
+                            data-name="Kingpin Longboards"
+                            data-description="{{ description }}"
+                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                            data-locale="auto"
+                            data-currency="usd"
+                            data-shipping-address="true"
+                            data-billing-address="true"
+                            data-zip-code="true">
+                            </script>
+                        </form>
+                        <span class="pageText">or</span>
+                        <a href="{% url 'core:allProducts' %}" class="continueShopping pageText">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+      {% endif %}
+    {% endblock content %}
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load staticfiles%}
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}Bearings{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% comment %} <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script> {% endcomment %}
+    {% endblock %}
+</head>
+<body>
+    {% block content %}
+        {% for bearing in bearings  %}
+            <header>{{bearing.name}}</header>
+        {% endfor %}    
+    {% endblock %}
+</body>
+</html>
+
+    

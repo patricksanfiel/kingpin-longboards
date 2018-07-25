@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}Page Title{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" media="screen" href="{% static 'CSS/Core/product.css' %}" />
+        <script src="main.js"></script>
+    {% endblock head %}
+</head>
+<body>
+    {% block content %}
+        <div>
+            <div>
+                <div class="row">
+                    <p class="productPageLink col-12"><a href="{% url 'index' %}" class="topLinks">Home</a> | <a href="{{ product.category.get_url }}" class="topLinks">{{ product.category }}</a> | {{product.name}}</p>
+                </div>
+                <div class="row singleProductDiv">
+                    <div class="imageDiv col-8">
+                        <img src="{{product.image.url}}" alt="{{product.name}}" class="productImage">
+                    </div>
+                    <div class="infoDiv col-4">
+                        <h1 class="productInfo productName">{{ product.name }}</h1>
+                        <p class="productInfo productPrice">${{product.price}}</p>
+                        <p class="productInfo productDescription">{{product.description}}</p>
+                        {% if product.stock <= 0 %}
+                            <p>Out of Stock</p>
+                        {% else %}
+                            <a href="{% url 'cart:add_cart' product.id %}" class="productInfo addToCartLink">Add to Cart</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock content %}  
+</body>
+</html>

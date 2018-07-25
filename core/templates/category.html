@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}{% if category %} {{ category.name }}{% endif %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" media="screen" href="{% static 'CSS/Core/category.css'%}" />
+        <script src="main.js"></script>
+    {% endblock %}
+</head>
+<body>
+    {% block content %}
+        {% if category  %}
+            <div>
+                <div>
+                    <p class="allProductsLinkParagraph"><a href="{% url 'core:allProducts' %}" class="allProductsLink">View All Products</a> | {{category.name}}</p>
+                </div>
+            </div>
+        {% endif %} 
+        <div class="row topCategoryDiv">
+        {% if category %}
+            <img src="{{category.image.url}}" alt="{{ category.name }}" class="col-12 singleCategoryImage">
+        </div>
+        {% else %}
+            <div class="row">
+                <p class="col-12" id="allProductsHeader">All Products</p>
+            </div>
+            <img src="{% static 'images/allProducts.jpg'%}" alt="all products image" class="col-12">
+        </div>
+        {% endif %}
+        <div>
+            <div>
+                <div class="row productRow">
+                {% for product in products.object_list %}
+                        <div class="productDiv col-4">
+                            <a href="{{product.get_url}}"><img src="{{product.image.url}}" alt="{product.name}" class="productImage"></a>
+                            <div class="productNamePrice">
+                                <h4 class="productName">{{product.name}}</h4>
+                                <p class="productPrice">${{product.price}}</p>
+                            </div>
+                        </div>
+                        {% if forloop.counter|divisibleby:3 %}
+                            </div><div class="row">
+                        {% endif %}
+                {% endfor %}
+            </div>
+            </div>
+            <div class="mx-auto">
+                
+                {% if products.paginator.num_pages > 1  %}
+                    <hr>
+                    <div>
+                        
+                        {% for pg in products.paginator.page_range  %}
+                            <a href="?page={{pg}}" class="{% if products.number == pg %}active{% endif %}">
+                                {{pg}}
+                            </a>
+                        {% endfor %}
+                            
+                    </div>
+                {% endif %}      
+            </div>
+        </div>   
+    {% endblock %}
+</body>
+</html>

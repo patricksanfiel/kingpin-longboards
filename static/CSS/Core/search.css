@@ -1,0 +1,26 @@
+.searchResult{
+    padding: 0.5em;
+    background-color: #C96A3A;
+    background-color: white;
+    margin-bottom: 2em;
+    box-shadow: 3px 3px 15px black;
+}
+.searchText{
+    font-family: 'Nanum Gothic', sans-serif; 
+}
+.searchInfo{
+    margin-top: 2em;
+    text-align: right;
+}
+.searchName{
+    margin-bottom: 1em;
+}
+.resultsDiv{
+    background-color: white;
+}
+.searchResultImage{
+    height: 20em;
+}
+.searchDescription{
+    margin-top: 1em;
+}

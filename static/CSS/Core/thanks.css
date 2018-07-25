@@ -1,0 +1,21 @@
+.thanksText{
+    margin-top: 3em;
+    text-align: center;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+.thanksDiv{
+    margin-top: 3em;
+    padding: 1em;
+}
+.receivedOrderNotification{
+    margin-bottom: 3em;
+}
+.thanksDivContent{
+   margin-left: 8.33%;
+   background-color: white;
+   box-shadow: 3px 3px 15px black;
+}
+#orderNumber{
+    font-weight: bold;
+    font-size: 1.2em;
+}
